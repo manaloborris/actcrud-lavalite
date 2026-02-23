@@ -273,7 +273,7 @@ class Router
                         }
 
                         if (!str_contains($file, '/')) {
-                            $file = dirname(__DIR__) . "/middlewares/$file";
+                            $file = dirname(__DIR__) . "/app/middlewares/$file";
                         }
 
                         if (file_exists($file)) {
@@ -314,7 +314,7 @@ class Router
                         if (defined('IS_DEV') && IS_DEV) {
                             http_response_code(403);
                             $error = 'Access denied by middleware';
-                            include dirname(__DIR__) . '/views/errors/403.php';
+                            include dirname(__DIR__) . '/app/views/errors/403.php';
                             exit;
                         }
                         exit;
@@ -327,7 +327,7 @@ class Router
                     if (defined('IS_DEV') && IS_DEV) {
                         http_response_code(403);
                         $error = 'CSRF token validation failed.';
-                        include dirname(__DIR__) . '/views/errors/403.php';
+                        include dirname(__DIR__) . '/app/views/errors/403.php';
                         exit;
                     }
                     exit;
@@ -343,7 +343,7 @@ class Router
                 if (defined('IS_DEV') && IS_DEV) {
                     http_response_code(500);
                     $error = "Server error: " . htmlspecialchars($e->getMessage());
-                    include dirname(__DIR__) . '/views/errors/500.php';
+                    include dirname(__DIR__) . '/app/views/errors/500.php';
                     exit;
                 }
                 exit;
@@ -353,7 +353,7 @@ class Router
         }
 
         http_response_code(404);
-        include dirname(__DIR__) . '/views/errors/404.php';
+        include dirname(__DIR__) . '/app/views/errors/404.php';
         exit;
     }
 
@@ -387,7 +387,7 @@ class Router
         if (defined('IS_DEV') && IS_DEV) {
             http_response_code(500);
             $error = "500 - Handler not found: " . htmlspecialchars($file);
-            include dirname(__DIR__) . '/views/errors/500.php';
+            include dirname(__DIR__) . '/app/views/errors/500.php';
             exit;
         }
 
