@@ -82,3 +82,10 @@ function esc($var, $double_encode = TRUE): string|array
 
 		return htmlspecialchars($var, ENT_QUOTES, 'utf-8', $double_encode);
 }
+
+//get segments
+function segment($seg)
+{
+    $parts = is_int($seg) ? explode('/', $_SERVER['REQUEST_URI']) : FALSE;
+    return isset($parts[$seg]) ? $parts[$seg] : false;
+}
