@@ -110,7 +110,7 @@ p {
   <p>The page you requested was not found.</p>
 
   <div class="actions">
-    <a class="btn primary" href="/">Home</a>
+    <a class="btn primary" href="<?= url('') ?>">Home</a>
     <a class="btn" href="javascript:history.back()">Back</a>
   </div>
 
