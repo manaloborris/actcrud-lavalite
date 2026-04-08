@@ -28,7 +28,7 @@ function url(string $path = ''): string
     $clean_path = ltrim($path, '/');
 
     if ($clean_path === '') {
-        return $base . '/';
+        return $base . '/index.php';
     }
 
     // Keep static files direct so CSS/JS/assets are not routed through index.php.
@@ -36,7 +36,7 @@ function url(string $path = ''): string
         return $base . '/' . $clean_path;
     }
 
-    return $base . '/index.php/' . $clean_path;
+    return $base . '/index.php?route=' . rawurlencode($clean_path);
 }
 
 //generate csrf field

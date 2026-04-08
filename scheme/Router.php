@@ -202,9 +202,14 @@ class Router
         $base_path = $this->get_base_path();
 
         $request_method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-        $uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+        $query_route = trim((string) ($_GET['route'] ?? ''), '/');
+        if ($query_route !== '') {
+            $uri = $query_route;
+        } else {
+            $uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+        }
 
-        if (str_starts_with($uri, $base_path)) {
+        if ($query_route === '' && str_starts_with($uri, $base_path)) {
             $uri = substr($uri, strlen($base_path) - 1) ?: '/';
         }
 
