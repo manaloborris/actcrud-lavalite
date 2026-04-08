@@ -171,6 +171,9 @@ class Database {
         switch ($driver) {
             case 'mysql':
                 $dsn = "mysql:host=$host;dbname=$dbname_value;charset=$charset;port=$port";
+                if (str_contains($host, '.mysql.database.azure.com')) {
+                    $dsn .= ';sslmode=require';
+                }
                 break;
             case 'pgsql':
                 $dsn = "pgsql:host=$host;port=$port;dbname=$dbname_value;user=$username;password=$password";
