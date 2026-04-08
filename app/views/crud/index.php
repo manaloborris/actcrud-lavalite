@@ -40,7 +40,7 @@ $rows = $db->table('borris_bcm_users')->order_by('id', 'DESC')->get_all();
               <div class="text-white/80 mt-1">Welcome <?= esc($_SESSION['user_name'] ?? 'Borris') ?>!</div>
             </div>
             <div class="flex gap-2 justify-end">
-              <a class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded" href="<?= url('crud/view') ?>">View users</a>
+              <a class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded" href="<?= url('view') ?>">View users</a>
               <a class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded" href="<?= url('logout') ?>">Logout</a>
             </div>
           </div>

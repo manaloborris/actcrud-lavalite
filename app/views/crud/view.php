@@ -38,7 +38,7 @@ $rows = $query->order_by($sort, $order)->get_all();
               <p class="text-white/70 mb-0">Search, sort and manage users.</p>
             </div>
             <div class="text-right">
-              <a class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded" href="<?= $isAdmin ? url('crud') : url('crud/view') ?>"><?= $isAdmin ? 'Back to dashboard' : 'Refresh' ?></a>
+              <a class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded" href="<?= $isAdmin ? url('crud') : url('view') ?>"><?= $isAdmin ? 'Back to dashboard' : 'Refresh' ?></a>
               <a class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded ml-2" href="<?= url('logout') ?>">Logout</a>
             </div>
           </div>
@@ -49,7 +49,7 @@ $rows = $query->order_by($sort, $order)->get_all();
             </div>
           <?php endif; ?>
 
-          <form class="grid grid-cols-1 md:grid-cols-12 gap-3 mt-4" method="GET" action="<?= url('crud/view') ?>">
+          <form class="grid grid-cols-1 md:grid-cols-12 gap-3 mt-4" method="GET" action="<?= url('view') ?>">
             <div class="md:col-span-5">
               <label class="sr-only" for="search">Search</label>
               <div class="flex items-center rounded bg-white/10 border border-white/15">

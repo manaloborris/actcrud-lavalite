@@ -13,6 +13,7 @@ $router->post('login', 'app/views/crud/login');
 $router->get('crud', 'app/views/crud/index')->middleware('AuthMiddleware')->middleware('AdminMiddleware');
 $router->post('crud', 'app/views/crud/index')->middleware('AuthMiddleware')->middleware('AdminMiddleware');
 
+$router->get('view', 'app/views/crud/view')->middleware('AuthMiddleware');
 $router->get('crud/view', 'app/views/crud/view')->middleware('AuthMiddleware');
 
 $router->get('crud/update/{id}', 'app/views/crud/update')->middleware('AuthMiddleware')->middleware('AdminMiddleware');

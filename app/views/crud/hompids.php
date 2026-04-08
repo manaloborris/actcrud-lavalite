@@ -3,7 +3,7 @@ if (!empty($_SESSION['authenticated'])) {
   if (($_SESSION['role'] ?? '') === 'admin') {
     header('Location: ' . url('crud'));
   } else {
-    header('Location: ' . url('crud/view'));
+    header('Location: ' . url('view'));
   }
     exit;
 }
