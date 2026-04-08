@@ -24,7 +24,19 @@ function base_url(): string
 //generate url based on BASE_URL
 function url(string $path = ''): string
 {
-    return rtrim(base_url(), '/') . '/' . ltrim($path, '/');
+    $base = rtrim(base_url(), '/');
+    $clean_path = ltrim($path, '/');
+
+    if ($clean_path === '') {
+        return $base . '/';
+    }
+
+    // Keep static files direct so CSS/JS/assets are not routed through index.php.
+    if (str_starts_with($clean_path, 'public/') || $clean_path === 'favicon.ico' || $clean_path === 'robots.txt') {
+        return $base . '/' . $clean_path;
+    }
+
+    return $base . '/index.php/' . $clean_path;
 }
 
 //generate csrf field

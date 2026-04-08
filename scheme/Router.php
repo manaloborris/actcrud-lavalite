@@ -211,6 +211,11 @@ class Router
         $uri = trim($uri, '/');
         $uri_parts = $uri === '' ? [] : explode('/', $uri);
 
+        // Support front-controller style URLs (e.g. /index.php/login) when URL rewrite is unavailable.
+        if (!empty($uri_parts) && $uri_parts[0] === 'index.php') {
+            array_shift($uri_parts);
+        }
+
         foreach ($this->routes as $route) {
             $method_match = $route['method'] === 'ANY' || $route['method'] === $request_method;
             if (!$method_match) {
