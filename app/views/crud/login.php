@@ -73,6 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="w-full rounded bg-sky-500/90 hover:bg-sky-500 py-2 text-white font-medium">Log in</button>
       </form>
 
+      <div class="mt-3">
+        <a href="<?= url('') ?>" class="inline-flex items-center justify-center w-full rounded bg-white/10 hover:bg-white/20 py-2 text-white font-medium">Back</a>
+      </div>
+
       <div class="mt-4 rounded bg-white/10 border border-white/15 p-3 text-xs text-white/80">
         <div class="font-semibold mb-1">Demo accounts</div>
         <div>Admin: Borris / admin123</div>
