@@ -17,36 +17,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-  $accounts = [
-    'Borris' => [
-      'password' => 'admin123',
-      'role' => 'admin',
-    ],
-    'Guest' => [
-      'password' => 'user123',
-      'role' => 'user',
-    ],
-  ];
-
     if ($name === '' || $password === '') {
         $warning = 'Please enter both username and password.';
-  } elseif (!isset($accounts[$name]) || $accounts[$name]['password'] !== $password) {
-        $warning = 'Invalid username or password.';
-    } else {
+    } elseif ($name === 'Borris' && $password === 'admin123') {
+        // Admin login
         $_SESSION['authenticated'] = true;
         $_SESSION['user_name'] = $name;
-    $_SESSION['role'] = $accounts[$name]['role'];
-
-    if ($_SESSION['role'] === 'admin') {
-      header('Location: ' . url('crud'));
-    } else {
-      header('Location: ' . url('view'));
-    }
+        $_SESSION['role'] = 'admin';
+        header('Location: ' . url('crud'));
         exit;
+    } else {
+        // Check database for regular users
+        $db = db();
+        $user = $db->table('borris_bcm_users')->where('bcm_username', $name)->get();
+        
+        if ($user && password_verify($password, $user['bcm_password'])) {
+            $_SESSION['authenticated'] = true;
+            $_SESSION['user_name'] = $user['bcm_first_name'] . ' ' . $user['bcm_last_name'];
+            $_SESSION['role'] = 'user';
+            header('Location: ' . url('view'));
+            exit;
+        } else {
+            $warning = 'Invalid username or password.';
+        }
     }
 }
 ?>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="<?= url('public/css/style.css?v=20260331b') ?>">
 
 <div class="min-h-screen flex items-center justify-center py-20">
@@ -78,9 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <div class="mt-4 rounded bg-white/10 border border-white/15 p-3 text-xs text-white/80">
-        <div class="font-semibold mb-1">Demo accounts</div>
-        <div>Admin: Borris / admin123</div>
-        <div>User: Guest / user123</div>
+        <div class="font-semibold mb-1">Demo Account (Admin)</div>
+        <div>Username: Borris</div>
+        <div>Password: admin123</div>
+        <div class="mt-2 text-white/60">Regular users are added by admin</div>
       </div>
     </div>
   </div>

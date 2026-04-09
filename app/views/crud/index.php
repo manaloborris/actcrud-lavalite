@@ -5,6 +5,8 @@ $warning = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = [
+        'bcm_username'   => trim($_POST['username'] ?? ''),
+        'bcm_password'   => trim($_POST['password'] ?? ''),
         'bcm_last_name'  => trim($_POST['lastname'] ?? ''),
         'bcm_first_name' => trim($_POST['firstname'] ?? ''),
         'bcm_email'      => trim($_POST['email'] ?? ''),
@@ -17,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!in_array($data['bcm_gender'], $allowedGenders, true)) {
       $warning = "Please select a valid gender.";
     } else {
+        // Hash the password before storing
+        $data['bcm_password'] = password_hash($data['bcm_password'], PASSWORD_BCRYPT);
         $db->table('borris_bcm_users')->insert($data);
         header("Location: " . url('crud'));
         exit;
@@ -27,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $rows = $db->table('borris_bcm_users')->order_by('id', 'DESC')->get_all();
 ?>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="<?= url('public/css/style.css?v=20260331b') ?>">
 
 <div class="min-h-screen flex items-center justify-center py-20">
@@ -60,6 +65,8 @@ $rows = $db->table('borris_bcm_users')->order_by('id', 'DESC')->get_all();
               <?php endif; ?>
 
               <form method="POST" action="<?= url('crud') ?>" class="space-y-3">
+                <input class="w-full rounded bg-white/10 border border-white/15 px-3 py-2 text-white placeholder-white/60 focus:outline-none" name="username" placeholder="Username">
+                <input type="password" class="w-full rounded bg-white/10 border border-white/15 px-3 py-2 text-white placeholder-white/60 focus:outline-none" name="password" placeholder="Password">
                 <input class="w-full rounded bg-white/10 border border-white/15 px-3 py-2 text-white placeholder-white/60 focus:outline-none" name="lastname" placeholder="Last Name">
                 <input class="w-full rounded bg-white/10 border border-white/15 px-3 py-2 text-white placeholder-white/60 focus:outline-none" name="firstname" placeholder="First Name">
                 <input class="w-full rounded bg-white/10 border border-white/15 px-3 py-2 text-white placeholder-white/60 focus:outline-none" name="email" placeholder="Email">
