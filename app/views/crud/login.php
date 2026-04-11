@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <div class="mt-4 rounded bg-white/10 border border-white/15 p-3 text-xs text-white/80">
-        <div class="font-semibold mb-1">Demo Account (Admin)</div>
+        <div class="font-semibold mb-1">Log In as Admin(UserName and Password below)</div>
         <div>Username: Borris</div>
         <div>Password: admin123</div>
         <div class="mt-2 text-white/60">Regular users are added by admin</div>
